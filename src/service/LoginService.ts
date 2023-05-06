@@ -5,7 +5,7 @@ import Author from "../models/AuthorSchema";
 import LoginSchema from "../schemas/LoginSchema";
 import { generatePassword } from "../utils/passwordOperations";
 import { ILogin, ILoginError } from '../interfaces/ILogin';
-import tokenGenerate from '../utils/tokenOperations';
+import { tokenGenerate } from '../utils/tokenOperations';
 
 dotenv.config();
 

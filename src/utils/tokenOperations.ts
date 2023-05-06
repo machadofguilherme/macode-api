@@ -1,17 +1,25 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { ErrorCallback } from 'typescript';
 
 dotenv.config();
 
 const secret = String(process.env.SECRET);
 
-const tokenGenerate = (payload: object) => {
+export const tokenGenerate = (payload: object) => {
     const token = jwt.sign(payload, secret, {
         algorithm: 'HS384',
-        expiresIn: '2m'
+        expiresIn: '1m'
     });
 
     return token;
 };
 
-export default tokenGenerate;
+export const tokenValidate = (receivedToken: string) => {
+    try {
+        const token = jwt.verify(receivedToken, secret);
+        return token;
+    } catch (error) {
+        return false;
+    }
+};
