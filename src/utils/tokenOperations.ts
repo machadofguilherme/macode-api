@@ -9,7 +9,7 @@ const secret = String(process.env.SECRET);
 export const tokenGenerate = (payload: object) => {
     const token = jwt.sign(payload, secret, {
         algorithm: 'HS384',
-        expiresIn: '1m'
+        expiresIn: '30m'
     });
 
     return token;
