@@ -2,11 +2,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 
-import dbConnect from "./database.ts/connection";
+import dbConnect from "./database/connection";
 import Author from "./models/AuthorSchema";
 import { generatePassword } from "./utils/passwordOperations";
+
 import loginRouter from "./routes/LoginRouter";
 import checkRouter from "./routes/CheckRouter";
+import postRouter from "./routes/PostRouter";
 
 dotenv.config();
 const { PORT, PASSWORD } = process.env;
@@ -20,11 +22,12 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use(cors());
 app.use(loginRouter.login);
 app.use(checkRouter.check);
+app.use(postRouter.post);
 
-const dbPopulate = () => {
-    Author.collection.drop();
+const dbPopulate = async () => {
+    await Author.collection.drop();
 
-    new Author({
+    await new Author({
         author: "Guilherme Machado",
         email: "machadofguilherme@proton.me",
         password: encryptedPassword,
