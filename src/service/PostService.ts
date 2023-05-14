@@ -3,10 +3,19 @@ import IPostBody from "../interfaces/IPostBody";
 import IPost from "../interfaces/IPost";
 import Post from "../models/PostSchema";
 
+const find = async (): Promise<IPostBody[]> => {
+    const allPosts = await Post.find({}, {
+        _id: false,
+        __v: false, 
+    });
+
+    return allPosts as [];
+}
+
 const create = async (data: IPostBody):
     Promise<IPost | {}> => {
         const checkContent = postValidate(data);
-
+        
         if (checkContent?.code === 400) {
             return checkContent;
         }        
@@ -20,4 +29,4 @@ const create = async (data: IPostBody):
         };
 };
 
-export default { create };
+export default { find, create };
