@@ -1,8 +1,14 @@
 import { Request, Response } from "express";
 import postService from "../service/PostService";
 
-const find = async (_req: Request, res: Response) => {
-    const result = await postService.find();
+const find = async (req: Request, res: Response) => {
+    const limit = Number(req.body.limit);
+    const offset = Number(req.body.offset);
+    const endpoint = '/post';
+    
+    const result = await postService
+        .find(limit, offset, endpoint);
+
     res.status(200).json(result);
 };
 
