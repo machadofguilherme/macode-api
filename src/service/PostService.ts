@@ -13,13 +13,10 @@ const find = async (
     offset: number,
     endpoint: string
     ): Promise<{}> => {
-    // console.log(limit, offset, endpoint);
-        
-
-    const allPosts = await Post.find({}, {
-        _id: false,
-        __v: false, 
-    }).sort({ _id: -1 }).skip(offset).limit(limit);
+    const allPosts = await Post
+        .find({}, { __v: false })
+        .sort({ _id: -1 })
+        .skip(offset).limit(limit);
     
     const total = countData();
     const nextPage = createNextPage(limit, offset, total, endpoint);
@@ -32,6 +29,13 @@ const find = async (
         offset,
         allPosts,
     }
+}
+
+const findOne = async (id: string) => {
+    const post = await Post
+        .findOne({ _id: id }, { __v: false });
+
+    return post;
 }
 
 const create = async (data: IPostBody):
@@ -51,4 +55,4 @@ const create = async (data: IPostBody):
         };
 };
 
-export default { find, create };
+export default { find, findOne, create };
