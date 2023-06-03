@@ -1,7 +1,9 @@
-export default interface IPost {
+export interface IPost {
     id: string;
-    title: string;
-    
-    code?: number;
-    message?: string;
+    title: string;    
+}
+
+export interface IPostError {
+    code: number;
+    message: string;
 }

@@ -4,7 +4,7 @@ import loginService from "../service/LoginService";
 const login = async (req: Request, res: Response) => {
     const findAuthor = await loginService.find(req.body);
     
-    if (findAuthor.code) {
+    if ('code' in findAuthor) {
         return res.status(findAuthor.code)
             .json({ message: findAuthor.message });
     }

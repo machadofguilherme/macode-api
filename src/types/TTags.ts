@@ -1,2 +1,1 @@
-type TTags = string;
-export default TTags;
+export type TTags = string;

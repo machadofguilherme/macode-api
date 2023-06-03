@@ -8,4 +8,9 @@ const postError = {
     message: 'The post contains invalid content',
 };
 
-export { loginError, postError };
+const tagError = {
+    code: 400,
+    message: 'The tag contains invalid content'
+}
+
+export { loginError, postError, tagError };

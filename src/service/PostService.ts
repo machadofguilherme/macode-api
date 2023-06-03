@@ -1,6 +1,6 @@
 import postValidate from "../helpers/postValidate";
 import IPostBody from "../interfaces/IPostBody";
-import IPost from "../interfaces/IPost";
+import { IPost, IPostError } from "../interfaces/IPost";
 import Post from "../models/PostSchema";
 import createNextPage from "../utils/createNextPage";
 import createPreviouPage from "../utils/createPreviouPage";
@@ -39,7 +39,7 @@ const findOne = async (id: string) => {
 }
 
 const create = async (data: IPostBody):
-    Promise<IPost | {}> => {
+    Promise<IPost | IPostError | {}> => {
         const checkContent = postValidate(data);
         
         if (checkContent?.code === 400) {

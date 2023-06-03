@@ -9,6 +9,7 @@ import { generatePassword } from "./utils/passwordOperations";
 import loginRouter from "./routes/LoginRouter";
 import checkRouter from "./routes/CheckRouter";
 import postRouter from "./routes/PostRouter";
+import tagRouter from "./routes/TagRouter";
 
 dotenv.config();
 const { PORT, PASSWORD } = process.env;
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(loginRouter.login);
 app.use(checkRouter.check);
 app.use(postRouter.post);
+app.use(tagRouter.tag);
 
 const dbPopulate = async () => {
     await Author.collection.drop();
