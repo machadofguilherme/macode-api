@@ -24,4 +24,22 @@ const create = async (req: Request, res: Response) => {
     res.status(201).json(returnMessage);
 };
 
-export default { create, find, findOne };
+const findByIdAndUpdate = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const returnMessage = await postService
+        .findByIdAndUpdate(req.body, id);
+
+    if (returnMessage?.code === 400) {
+        res.status(400).json({ message: returnMessage.message });
+    }
+
+    res.status(200).json(returnMessage);
+};
+
+export default {
+    create,
+    find,
+    findOne,
+    findByIdAndUpdate
+};

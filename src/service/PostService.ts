@@ -4,6 +4,9 @@ import { IPost, IPostError } from "../interfaces/IPost";
 import Post from "../models/PostSchema";
 import createNextPage from "../utils/createNextPage";
 import createPreviouPage from "../utils/createPreviouPage";
+import { title } from "process";
+import IPostUpdateBody from "../interfaces/IPostUpdateBody";
+import UpdateSchema from "../schemas/UpdateSchema";
 
 const countData = (): number => {
     return Number(Post.countDocuments());
@@ -55,4 +58,27 @@ const create = async (data: IPostBody):
         };
 };
 
-export default { find, findOne, create };
+const findByIdAndUpdate = async ({
+    title,
+    description,
+    content,
+    tags,
+}: IPostUpdateBody, id: string) => {
+    const { error } = UpdateSchema
+        .validate({ title, description, content, tags });
+
+    if (error) {
+        return { message: error.message, code: 400 };
+    }
+
+    const post = await Post.findByIdAndUpdate(id, {
+        title,
+        description,
+        content,
+        tags,
+    });
+
+    return { message: `Updated post with id ${post?._id}` };
+}
+
+export default { find, findOne, create, findByIdAndUpdate };
