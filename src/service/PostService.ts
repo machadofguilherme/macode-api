@@ -8,9 +8,11 @@ import { title } from "process";
 import IPostUpdateBody from "../interfaces/IPostUpdateBody";
 import UpdateSchema from "../schemas/UpdateSchema";
 
-const countData = (): number => {
-    return Number(Post.countDocuments());
+const countData = async (): Promise<number> => {
+    const quantity = await Post.countDocuments();
+    return quantity;
 }
+
 const find = async (
     limit: number,
     offset: number,
@@ -21,7 +23,7 @@ const find = async (
         .sort({ _id: -1 })
         .skip(offset).limit(limit);
     
-    const total = countData();
+    const total = await countData();
     const nextPage = createNextPage(limit, offset, total, endpoint);
     const previousPage = createPreviouPage(limit, offset, endpoint);
 
@@ -31,6 +33,7 @@ const find = async (
         limit,
         offset,
         allPosts,
+        total
     }
 }
 
